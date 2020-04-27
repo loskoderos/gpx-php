@@ -1,0 +1,31 @@
+{
+  "name": "cepa/phpgpx",
+  "type": "library",
+  "description": "GPX library for PHP",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Lukasz Cepowski",
+      "email": "lukasz@cepowski.com",
+      "homepage": "https://cepa.io"
+    }
+  ],
+  "support": {
+    "email": "lukasz@cepowski.com"
+  },
+  "require": {
+    "php": ">=7.2"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "GPX\\": "src/GPX"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "GPX\\": "test/GPX"
+    }
+  }
+}

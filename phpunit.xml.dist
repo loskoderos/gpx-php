@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.8/phpunit.xsd"
+         backupGlobals="false"
+         colors="true"
+         bootstrap="vendor/autoload.php"
+>
+    <testsuites>
+        <testsuite name="tests">
+            <directory suffix="Test.php">test/*</directory>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <log type="junit" target="test/results/junit.xml" />
+    </logging>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+</phpunit>
