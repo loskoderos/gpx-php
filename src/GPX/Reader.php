@@ -15,11 +15,23 @@ class Reader
 
         while ($reader->read()) {
             if ($reader->nodeType == \XMLReader::ELEMENT) {
-                if ($reader->name == 'gpx') {
-                    $gpx->setVersion($reader->getAttribute('version'));
+                switch ($reader->name) {
+                    case 'gpx':
+                        $gpx
+                            ->setVersion($reader->getAttribute('version'))
+                            ->setCreator($reader->getAttribute('creator'));
+                        break;
+
+                    case 'metadata':
+                        var_dump($reader->readInnerXml());
+                        break;
                 }
+
+                var_dump($reader->name);
             }
         }
+
+        $reader->close();
 
         return $gpx;
     }
