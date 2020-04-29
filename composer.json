@@ -14,6 +14,7 @@
     "email": "lukasz@cepowski.com"
   },
   "require": {
+    "cepa/generic-php": "dev-master",
     "php": ">=7.2"
   },
   "require-dev": {
@@ -27,5 +28,11 @@
     "psr-4": {
       "GPX\\": "test/GPX"
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/cepa/generic-php"
+    }
+  ]
 }

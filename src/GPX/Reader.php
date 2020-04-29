@@ -2,7 +2,7 @@
 
 namespace GPX;
 
-use GPX\Types\GPX;
+use GPX\Models\GPX;
 
 class Reader
 {
@@ -17,17 +17,16 @@ class Reader
             if ($reader->nodeType == \XMLReader::ELEMENT) {
                 switch ($reader->name) {
                     case 'gpx':
-                        $gpx
-                            ->setVersion($reader->getAttribute('version'))
-                            ->setCreator($reader->getAttribute('creator'));
+                        $gpx->version = (string) $reader->getAttribute('version');
+                        $gpx->creator = (string) $reader->getAttribute('creator');
                         break;
 
                     case 'metadata':
-                        var_dump($reader->readInnerXml());
+                        //var_dump($reader->readInnerXml());
                         break;
                 }
 
-                var_dump($reader->name);
+                //var_dump($reader->name);
             }
         }
 
