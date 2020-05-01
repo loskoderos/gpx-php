@@ -3,6 +3,7 @@
 namespace GPX;
 
 use GPX\Models\Bounds;
+use GPX\Models\Copyright;
 use GPX\Models\Link;
 use GPX\Models\Metadata;
 use GPX\Models\GPX;
@@ -62,6 +63,7 @@ class Reader
                         break;
 
                     case 'copyright':
+                        $metadata->copyright = $this->parseCopyright($xml);
                         break;
 
                     case 'link':
@@ -98,7 +100,7 @@ class Reader
     protected function parseLink(XMLReader $xml)
     {
         $link = new Link();
-        $link->href = (string) $xml->getAttribute('href');
+        $link->href = $xml->getAttribute('href');
 
         while ($xml->read()) {
             if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'link') break;
@@ -144,5 +146,30 @@ class Reader
         }
 
         return $author;
+    }
+
+    protected function parseCopyright(XMLReader $xml)
+    {
+        $copyright = new Copyright();
+        $copyright->author = $xml->getAttribute('author');
+
+        while ($xml->read()) {
+            if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'copyright') break;
+            if ($xml->nodeType == XMLReader::ELEMENT) {
+                switch ($xml->name) {
+                    case 'year':
+                        $xml->read();
+                        $copyright->year = $xml->value;
+                        break;
+
+                    case 'license':
+                        $xml->read();
+                        $copyright->license = $xml->value;
+                        break;
+                }
+            }
+        }
+
+        return $copyright;
     }
 }
