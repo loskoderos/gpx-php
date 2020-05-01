@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><gpx creator="Test" version="1.1" xmlns="http://www.topografix.com/GPX/1/1">
+
+  <metadata>
+    <name>Test name</name>
+    <desc>Test description</desc>
+    <author>
+      <name>Test author</name>
+      <email id="foo" domain="bar.tld"></email>
+      <link href="https://test.tld">
+        <text>Test author link text</text>
+        <type>Test author link type</type>
+      </link>
+    </author>
+    <copyright author="Test copyright author">
+      <year>2020</year>
+      <license>https://test.tld/license.txt</license>
+    </copyright>
+    <link href="https://link1.tld">
+      <text>Test link1 text</text>
+      <type>Test link1 type</type>
+    </link>
+    <link href="https://link2.tld">
+      <text>Test link2 text</text>
+      <type>Test link2 type</type>
+    </link>
+    <time>2020-04-20T20:47:58Z</time>
+    <keywords>test1, test2, test3</keywords>
+    <bounds maxlat="50.724649429321289" maxlon="21.7474365234375" minlat="50.049934387207031" minlon="19.851608276367188" />
+    <extensions></extensions>
+  </metadata>
+
+</gpx>

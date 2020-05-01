@@ -4,6 +4,7 @@ namespace GPX;
 
 use GPX\Models\Bounds;
 use GPX\Models\Copyright;
+use GPX\Models\Email;
 use GPX\Models\Link;
 use GPX\Models\Metadata;
 use GPX\Models\GPX;
@@ -89,6 +90,7 @@ class Reader
                         break;
 
                     case 'extensions':
+                        $metadata->extensions = $this->parseExtensions($xml);
                         break;
                 }
             }
@@ -136,6 +138,9 @@ class Reader
                         break;
 
                     case 'email':
+                        $author->email = new Email();
+                        $author->email->id = $xml->getAttribute('id');
+                        $author->email->domain = $xml->getAttribute('domain');
                         break;
 
                     case 'link':
@@ -171,5 +176,11 @@ class Reader
         }
 
         return $copyright;
+    }
+
+    protected function parseExtensions(XMLReader $xml)
+    {
+        // @TODO
+        return [];
     }
 }

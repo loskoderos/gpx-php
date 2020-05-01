@@ -4,61 +4,12 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c80438f42a38ea07439cdc03446c252",
-    "packages": [
-        {
-            "name": "cepa/generic-php",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cepa/generic-php.git",
-                "reference": "8ce122c475d6462258cd46e0351ffae5cb895091"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cepa/generic-php/zipball/8ce122c475d6462258cd46e0351ffae5cb895091",
-                "reference": "8ce122c475d6462258cd46e0351ffae5cb895091",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Generic\\": "src/Generic"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Generic\\": "test/Generic"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Lukasz Cepowski",
-                    "email": "lukasz@cepowski.com",
-                    "homepage": "https://cepa.io"
-                }
-            ],
-            "description": "Generic PHP utilities library",
-            "support": {
-                "email": "lukasz@cepowski.com",
-                "source": "https://github.com/cepa/generic-php/tree/master",
-                "issues": "https://github.com/cepa/generic-php/issues"
-            },
-            "time": "2018-10-17T12:28:27+00:00"
-        }
-    ],
+    "content-hash": "b6ec3abef53b75e5fb871f8772993cfa",
+    "packages": [],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "cepa/generic-php": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
