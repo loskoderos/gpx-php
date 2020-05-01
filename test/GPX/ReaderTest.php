@@ -9,7 +9,8 @@ class ReaderTest extends TestCase
 {
     public function testReader()
     {
-        $gpx = Reader::read('samples/track1.gpx');
+        $reader = new Reader();
+        $gpx = $reader->read('samples/track1.gpx');
         var_dump($gpx);
     }
 }

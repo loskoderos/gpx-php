@@ -32,7 +32,7 @@ class Metadata
      * URLs associated with the location described in the file.
      * @var array<Link>
      */
-    public $links = array[];
+    public $links = [];
 
     /**
      * The creation date of the file.
