@@ -9,6 +9,7 @@ use GPX\Models\Link;
 use GPX\Models\Metadata;
 use GPX\Models\GPX;
 use GPX\Models\Person;
+use GPX\Models\Route;
 use GPX\Models\Waypoint;
 use XMLReader;
 
@@ -36,6 +37,10 @@ class GPXReader
 
                     case 'wpt':
                         array_push($gpx->waypoints, $this->parseWaypoint($xml));
+                        break;
+
+                    case 'rte':
+                        array_push($gpx->routes, $this->parseRoute($xml));
                         break;
                 }
             }
@@ -190,7 +195,7 @@ class GPXReader
         $waypoint->longitude = $xml->getAttribute('longitude');
 
         while ($xml->read()) {
-            if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'wpt') break;
+            if ($xml->nodeType == XMLReader::END_ELEMENT && ($xml->name == 'wpt' || $xml->name == 'rtept')) break;
             if ($xml->nodeType == XMLReader::ELEMENT) {
                 switch ($xml->name) {
                     case 'ele':
@@ -283,13 +288,69 @@ class GPXReader
                         break;
 
                     case 'extensions':
-                        $waypoint->extentions = $this->parseExtensions($xml);
+                        $waypoint->extensions = $this->parseExtensions($xml);
                         break;
                 }
             }
         }
 
         return $waypoint;
+    }
+
+    protected function parseRoute(XMLReader $xml)
+    {
+        $route = new Route();
+
+        while ($xml->read()) {
+            if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'rte') break;
+            if ($xml->nodeType == XMLReader::ELEMENT) {
+                switch ($xml->name) {
+                    case 'name':
+                        $xml->read();
+                        $route->name = $xml->value;
+                        break;
+
+                    case 'cmt':
+                        $xml->read();
+                        $route->comment = $xml->value;
+                        break;
+
+                    case 'desc':
+                        $xml->read();
+                        $route->description = $xml->value;
+                        break;
+
+                    case 'src':
+                        $xml->read();
+                        $route->source = $xml->value;
+                        break;
+
+                    case 'link':
+                        array_push($route->links, $this->parseLink($xml));
+                        break;
+
+                    case 'number':
+                        $xml->read();
+                        $route->number = $xml->value;
+                        break;
+
+                    case 'type':
+                        $xml->read();
+                        $route->type = $xml->value;
+                        break;
+
+                    case 'rtept':
+                        array_push($route->points, $this->parseWaypoint($xml));
+                        break;
+
+                    case 'extensions':
+                        $route->extensions = $this->parseExtensions($xml);
+                        break;
+                }
+            }
+        }
+
+        return $route;
     }
 
     protected function parseExtensions(XMLReader $xml)

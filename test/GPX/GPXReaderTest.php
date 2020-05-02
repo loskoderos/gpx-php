@@ -2,6 +2,7 @@
 
 namespace Test\GPX;
 
+use GPX\Models\Route;
 use GPX\Models\Waypoint;
 use GPX\GPXReader;
 use PHPUnit\Framework\TestCase;
@@ -17,6 +18,7 @@ class GPXReaderTest extends TestCase
         $this->assertEquals($gpx->version, '1.1');
         $this->assertEquals($gpx->creator, 'Test');
         $this->assertEquals(count($gpx->waypoints), 5);
+        $this->assertEquals(count($gpx->routes), 4);
 
         // Test Metadata
         $this->assertEquals($gpx->metadata->name, 'Test name');
@@ -73,6 +75,32 @@ class GPXReaderTest extends TestCase
         $this->assertEquals($w->positionDilution, '7.89');
         $this->assertEquals($w->ageOfDgpsData, '321');
         $this->assertEquals($w->dgpsId, '123');
+
+        // Test Route 1
+        /** @var Route $r */
+        $r = $gpx->routes[2];
+        $this->assertEquals($r->name, 'Test route 1');
+        $this->assertEquals($r->comment, 'Comment for route 1');
+        $this->assertEquals($r->description, 'Description for route 1');
+        $this->assertEquals(count($r->links), 2);
+        $this->assertEquals($r->links[0]->href, 'https://link1.tld/route1');
+        $this->assertEquals($r->links[0]->text, 'Test link1 text for route 1');
+        $this->assertEquals($r->links[0]->type, 'Test link1 type for route 1');
+        $this->assertEquals($r->links[1]->href, 'https://link2.tld/route1');
+        $this->assertEquals($r->links[1]->text, 'Test link2 text for route 1');
+        $this->assertEquals($r->links[1]->type, 'Test link2 type for route 1');
+        $this->assertEquals($r->number, '123');
+        $this->assertEquals($r->type, 'type 1');
+        $this->assertEquals(count($r->points), 3);
+        $this->assertEquals($r->points[0]->latitude, '3.21');
+        $this->assertEquals($r->points[0]->longitude, '6.54');
+        $this->assertEquals($r->points[0]->name, 'Test route 1 waypoint 1');
+        $this->assertEquals($r->points[1]->latitude, '7.89');
+        $this->assertEquals($r->points[1]->longitude, '1.23');
+        $this->assertEquals($r->points[1]->name, 'Test route 1 waypoint 2');
+        $this->assertEquals($r->points[2]->latitude, '4.56');
+        $this->assertEquals($r->points[2]->longitude, '3.21');
+        $this->assertEquals($r->points[2]->name, 'Test route 1 waypoint 3');
 
         //var_dump($gpx);
     }

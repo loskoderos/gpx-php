@@ -125,8 +125,8 @@ class Waypoint
     public $dgpsId = null;
 
     /**
-     * Extentions.
+     * Extensions.
      * @var array
      */
-    public $extentions = [];
+    public $extensions = [];
 }

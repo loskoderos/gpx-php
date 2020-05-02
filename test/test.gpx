@@ -91,4 +91,35 @@
   <wpt latitude="5.55" longitude="6.66"></wpt>
   <wpt latitude="7.77" longitude="8.88"></wpt>
 
+  <rte></rte>
+  <rte></rte>
+
+  <rte>
+    <name>Test route 1</name>
+    <cmt>Comment for route 1</cmt>
+    <desc>Description for route 1</desc>
+    <link href="https://link1.tld/route1">
+      <text>Test link1 text for route 1</text>
+      <type>Test link1 type for route 1</type>
+    </link>
+    <link href="https://link2.tld/route1">
+      <text>Test link2 text for route 1</text>
+      <type>Test link2 type for route 1</type>
+    </link>
+    <number>123</number>
+    <type>type 1</type>
+    <extensions></extensions>
+    <rtept latitude="3.21" longitude="6.54">
+      <name>Test route 1 waypoint 1</name>
+    </rtept>
+    <rtept latitude="7.89" longitude="1.23">
+      <name>Test route 1 waypoint 2</name>
+    </rtept>
+    <rtept latitude="4.56" longitude="3.21">
+      <name>Test route 1 waypoint 3</name>
+    </rtept>
+  </rte>
+
+  <rte></rte>
+
 </gpx>

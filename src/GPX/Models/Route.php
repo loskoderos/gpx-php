@@ -56,5 +56,5 @@ class Route
      * A list of route points.
      * @var array<Waypoint>
      */
-    public $points;
+    public $points = [];
 }
