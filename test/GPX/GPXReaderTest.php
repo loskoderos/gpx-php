@@ -2,19 +2,21 @@
 
 namespace Test\GPX;
 
-use GPX\Reader;
+use GPX\Models\Waypoint;
+use GPX\GPXReader;
 use PHPUnit\Framework\TestCase;
 
-class ReaderTest extends TestCase
+class GPXReaderTest extends TestCase
 {
     public function testReader()
     {
-        $reader = new Reader();
-        $gpx = $reader->read('test/test1.gpx');
+        $reader = new GPXReader();
+        $gpx = $reader->read('test/test.gpx');
 
         // Test GPX
         $this->assertEquals($gpx->version, '1.1');
         $this->assertEquals($gpx->creator, 'Test');
+        $this->assertEquals(count($gpx->waypoints), 5);
 
         // Test Metadata
         $this->assertEquals($gpx->metadata->name, 'Test name');
@@ -42,6 +44,36 @@ class ReaderTest extends TestCase
         $this->assertEquals($gpx->metadata->bounds->minLatitude, '50.049934387207031');
         $this->assertEquals($gpx->metadata->bounds->minLongitude, '19.851608276367188');
 
-        var_dump($gpx);
+        // Test Waypoint 1
+        /** @var Waypoint $w */
+        $w = $gpx->waypoints[0];
+        $this->assertEquals($w->latitude, '1.23');
+        $this->assertEquals($w->longitude, '4.56');
+        $this->assertEquals($w->elevation, '7.89');
+        $this->assertEquals($w->time, new \DateTime('2020-04-20T12:34:57Z'));
+        $this->assertEquals($w->magneticVariation, '1.23');
+        $this->assertEquals($w->geoidHeight, '321');
+        $this->assertEquals($w->name, 'Test waypoint 1');
+        $this->assertEquals($w->comment, 'Comment for waypoint 1');
+        $this->assertEquals($w->description, 'Description for waypoint 1');
+        $this->assertEquals($w->source, 'Source for waypoint 1');
+        $this->assertEquals(count($w->links), 2);
+        $this->assertEquals($w->links[0]->href, 'https://link1.tld/waypoint1');
+        $this->assertEquals($w->links[0]->text, 'Test link1 text for waypoint 1');
+        $this->assertEquals($w->links[0]->type, 'Test link1 type for waypoint 1');
+        $this->assertEquals($w->links[1]->href, 'https://link2.tld/waypoint1');
+        $this->assertEquals($w->links[1]->text, 'Test link2 text for waypoint 1');
+        $this->assertEquals($w->links[1]->type, 'Test link2 type for waypoint 1');
+        $this->assertEquals($w->symbol, 'Waypoint 1');
+        $this->assertEquals($w->type, 'Type 1');
+        $this->assertEquals($w->fix, 'none');
+        $this->assertEquals($w->satellites, '9');
+        $this->assertEquals($w->horizontalDilution, '1.23');
+        $this->assertEquals($w->verticalDilution, '4.56');
+        $this->assertEquals($w->positionDilution, '7.89');
+        $this->assertEquals($w->ageOfDgpsData, '321');
+        $this->assertEquals($w->dgpsId, '123');
+
+        //var_dump($gpx);
     }
 }

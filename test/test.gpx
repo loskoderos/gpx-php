@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?><gpx creator="Test" version="1.1" xmlns="http://www.topografix.com/GPX/1/1">
+
+  <metadata>
+    <name>Test name</name>
+    <desc>Test description</desc>
+    <author>
+      <name>Test author</name>
+      <email id="foo" domain="bar.tld"></email>
+      <link href="https://test.tld">
+        <text>Test author link text</text>
+        <type>Test author link type</type>
+      </link>
+    </author>
+    <copyright author="Test copyright author">
+      <year>2020</year>
+      <license>https://test.tld/license.txt</license>
+    </copyright>
+    <link href="https://link1.tld">
+      <text>Test link1 text</text>
+      <type>Test link1 type</type>
+    </link>
+    <link href="https://link2.tld">
+      <text>Test link2 text</text>
+      <type>Test link2 type</type>
+    </link>
+    <time>2020-04-20T20:47:58Z</time>
+    <keywords>test1, test2, test3</keywords>
+    <bounds maxlat="50.724649429321289" maxlon="21.7474365234375" minlat="50.049934387207031" minlon="19.851608276367188" />
+    <extensions></extensions>
+  </metadata>
+
+  <wpt latitude="1.23" longitude="4.56">
+    <ele>7.89</ele>
+    <time>2020-04-20T12:34:57Z</time>
+    <magvar>1.23</magvar>
+    <geoidheight>321</geoidheight>
+    <name>Test waypoint 1</name>
+    <cmt>Comment for waypoint 1</cmt>
+    <desc>Description for waypoint 1</desc>
+    <src>Source for waypoint 1</src>
+    <link href="https://link1.tld/waypoint1">
+      <text>Test link1 text for waypoint 1</text>
+      <type>Test link1 type for waypoint 1</type>
+    </link>
+    <link href="https://link2.tld/waypoint1">
+      <text>Test link2 text for waypoint 1</text>
+      <type>Test link2 type for waypoint 1</type>
+    </link>
+    <sym>Waypoint 1</sym>
+    <type>Type 1</type>
+    <fix>none</fix>
+    <sat>9</sat>
+    <hdop>1.23</hdop>
+    <vdop>4.56</vdop>
+    <pdop>7.89</pdop>
+    <ageofdgpsdata>321</ageofdgpsdata>
+    <dgpsid>123</dgpsid>
+    <extensions></extensions>
+  </wpt>
+
+  <wpt latitude="3.21" longitude="6.54">
+    <ele>9.78</ele>
+    <time>2020-04-20T01:02:03Z</time>
+    <magvar>1.23</magvar>
+    <geoidheight>321</geoidheight>
+    <name>Test waypoint 2</name>
+    <cmt>Comment for waypoint 2</cmt>
+    <desc>Description for waypoint 2</desc>
+    <src>Source for waypoint 2</src>
+    <link href="https://link1.tld/waypoint2">
+      <text>Test link1 text for waypoint 2</text>
+      <type>Test link1 type for waypoint 2</type>
+    </link>
+    <link href="https://link2.tld/waypoint2">
+      <text>Test link2 text for waypoint 2</text>
+      <type>Test link2 type for waypoint 2</type>
+    </link>
+    <sym>Waypoint 2</sym>
+    <type>Type 2</type>
+    <fix>none</fix>
+    <sat>9</sat>
+    <hdop>1.23</hdop>
+    <vdop>4.56</vdop>
+    <pdop>7.89</pdop>
+    <ageofdgpsdata>321</ageofdgpsdata>
+    <dgpsid>123</dgpsid>
+    <extensions></extensions>
+  </wpt>
+
+  <wpt latitude="3.33" longitude="4.44"></wpt>
+  <wpt latitude="5.55" longitude="6.66"></wpt>
+  <wpt latitude="7.77" longitude="8.88"></wpt>
+
+</gpx>

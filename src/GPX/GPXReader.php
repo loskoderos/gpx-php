@@ -9,9 +9,10 @@ use GPX\Models\Link;
 use GPX\Models\Metadata;
 use GPX\Models\GPX;
 use GPX\Models\Person;
+use GPX\Models\Waypoint;
 use XMLReader;
 
-class Reader
+class GPXReader
 {
     public function read($filename): GPX
     {
@@ -31,6 +32,10 @@ class Reader
 
                     case 'metadata':
                         $gpx->metadata = $this->parseMetadata($xml);
+                        break;
+
+                    case 'wpt':
+                        array_push($gpx->waypoints, $this->parseWaypoint($xml));
                         break;
                 }
             }
@@ -176,6 +181,115 @@ class Reader
         }
 
         return $copyright;
+    }
+
+    protected function parseWaypoint(XMLReader $xml)
+    {
+        $waypoint = new Waypoint();
+        $waypoint->latitude = $xml->getAttribute('latitude');
+        $waypoint->longitude = $xml->getAttribute('longitude');
+
+        while ($xml->read()) {
+            if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'wpt') break;
+            if ($xml->nodeType == XMLReader::ELEMENT) {
+                switch ($xml->name) {
+                    case 'ele':
+                        $xml->read();
+                        $waypoint->elevation = $xml->value;
+                        break;
+
+                    case 'time':
+                        $xml->read();
+                        $waypoint->time = new \DateTime($xml->value);
+                        break;
+
+                    case 'magvar':
+                        $xml->read();
+                        $waypoint->magneticVariation = $xml->value;
+                        break;
+
+                    case 'geoidheight':
+                        $xml->read();
+                        $waypoint->geoidHeight = $xml->value;
+                        break;
+
+                    case 'name':
+                        $xml->read();
+                        $waypoint->name = $xml->value;
+                        break;
+
+                    case 'cmt':
+                        $xml->read();
+                        $waypoint->comment = $xml->value;
+                        break;
+
+                    case 'desc':
+                        $xml->read();
+                        $waypoint->description = $xml->value;
+                        break;
+
+                    case 'src':
+                        $xml->read();
+                        $waypoint->source = $xml->value;
+                        break;
+
+                    case 'link':
+                        array_push($waypoint->links, $this->parseLink($xml));
+                        break;
+
+                    case 'sym':
+                        $xml->read();
+                        $waypoint->symbol = $xml->value;
+                        break;
+
+                    case 'type':
+                        $xml->read();
+                        $waypoint->type = $xml->value;
+                        break;
+
+                    case 'fix':
+                        $xml->read();
+                        $waypoint->fix = $xml->value;
+                        break;
+
+                    case 'sat':
+                        $xml->read();
+                        $waypoint->satellites = $xml->value;
+                        break;
+
+                    case 'hdop':
+                        $xml->read();
+                        $waypoint->horizontalDilution = $xml->value;
+                        break;
+
+                    case 'vdop':
+                        $xml->read();
+                        $waypoint->verticalDilution = $xml->value;
+                        break;
+
+                    case 'pdop':
+                        $xml->read();
+                        $waypoint->positionDilution = $xml->value;
+                        break;
+
+                    case 'ageofdgpsdata':
+                        $xml->read();
+                        $waypoint->ageOfDgpsData = $xml->value;
+                        break;
+
+                    case 'dgpsid':
+                        $xml->read();
+                        $waypoint->dgpsId = $xml->value;
+                        break;
+
+                    case 'extensions':
+                        $waypoint->extentions = $this->parseExtensions($xml);
+                        break;
+                }
+            }
+        }
+
+        return $waypoint;
     }
 
     protected function parseExtensions(XMLReader $xml)
