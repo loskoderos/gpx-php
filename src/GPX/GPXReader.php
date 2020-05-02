@@ -10,6 +10,8 @@ use GPX\Models\Metadata;
 use GPX\Models\GPX;
 use GPX\Models\Person;
 use GPX\Models\Route;
+use GPX\Models\Track;
+use GPX\Models\TrackSegment;
 use GPX\Models\Waypoint;
 use XMLReader;
 
@@ -41,6 +43,10 @@ class GPXReader
 
                     case 'rte':
                         array_push($gpx->routes, $this->parseRoute($xml));
+                        break;
+
+                    case 'trk':
+                        array_push($gpx->tracks, $this->parseTrack($xml));
                         break;
                 }
             }
@@ -195,7 +201,7 @@ class GPXReader
         $waypoint->longitude = $xml->getAttribute('longitude');
 
         while ($xml->read()) {
-            if ($xml->nodeType == XMLReader::END_ELEMENT && ($xml->name == 'wpt' || $xml->name == 'rtept')) break;
+            if ($xml->nodeType == XMLReader::END_ELEMENT && ($xml->name == 'wpt' || $xml->name == 'rtept' || $xml->name == 'trkpt')) break;
             if ($xml->nodeType == XMLReader::ELEMENT) {
                 switch ($xml->name) {
                     case 'ele':
@@ -351,6 +357,84 @@ class GPXReader
         }
 
         return $route;
+    }
+
+    protected function parseTrack(XMLReader $xml)
+    {
+        $track = new Track();
+
+        while ($xml->read()) {
+            if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'trk') break;
+            if ($xml->nodeType == XMLReader::ELEMENT) {
+                switch ($xml->name) {
+                    case 'name':
+                        $xml->read();
+                        $track->name = $xml->value;
+                        break;
+
+                    case 'cmt':
+                        $xml->read();
+                        $track->comment = $xml->value;
+                        break;
+
+                    case 'desc':
+                        $xml->read();
+                        $track->description = $xml->value;
+                        break;
+
+                    case 'src':
+                        $xml->read();
+                        $track->source = $xml->value;
+                        break;
+
+                    case 'link':
+                        array_push($track->links, $this->parseLink($xml));
+                        break;
+
+                    case 'number':
+                        $xml->read();
+                        $track->number = $xml->value;
+                        break;
+
+                    case 'type':
+                        $xml->read();
+                        $track->type = $xml->value;
+                        break;
+
+                    case 'trkseg':
+                        array_push($track->segments, $this->parseTrackSegment($xml));
+                        break;
+
+                    case 'extensions':
+                        $track->extensions = $this->parseExtensions($xml);
+                        break;
+                }
+            }
+        }
+
+        return $track;
+    }
+
+    protected function parseTrackSegment(XMLReader $xml)
+    {
+        $segment = new TrackSegment();
+
+        while ($xml->read()) {
+            if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'trkseg') break;
+            if ($xml->nodeType == XMLReader::ELEMENT) {
+                switch ($xml->name) {
+                    case 'trkpt':
+                        array_push($segment->points, $this->parseWaypoint($xml));
+                        break;
+
+                    case 'extensions':
+                        array_push($segment->extensions, $this->parseExtensions($ml));
+                        break;
+                }
+            }
+        }
+
+        return $segment;
     }
 
     protected function parseExtensions(XMLReader $xml)
