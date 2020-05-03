@@ -11,7 +11,7 @@ class Extension
     public $name = null;
 
     /**
-     * Attributes, key value.
+     * Attributes, key => value.
      * @var array
      */
     public $attributes = [];
@@ -21,4 +21,10 @@ class Extension
      * @var array<Extension>
      */
     public $children = [];
+
+    /**
+     * Value.
+     * @var string
+     */
+    public $value = null;
 }

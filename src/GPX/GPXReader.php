@@ -5,6 +5,7 @@ namespace GPX;
 use GPX\Models\Bounds;
 use GPX\Models\Copyright;
 use GPX\Models\Email;
+use GPX\Models\Extension;
 use GPX\Models\Link;
 use GPX\Models\Metadata;
 use GPX\Models\GPX;
@@ -60,6 +61,8 @@ class GPXReader
     protected function parseMetadata(XMLReader $xml)
     {
         $metadata = new Metadata();
+
+        if ($xml->isEmptyElement) return $metadata;
 
         while ($xml->read()) {
             if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'metadata') break;
@@ -120,6 +123,8 @@ class GPXReader
         $link = new Link();
         $link->href = $xml->getAttribute('href');
 
+        if ($xml->isEmptyElement) return $link;
+
         while ($xml->read()) {
             if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'link') break;
             if ($xml->nodeType == XMLReader::ELEMENT) {
@@ -143,6 +148,8 @@ class GPXReader
     protected function parseAuthor(XMLReader $xml)
     {
         $author = new Person();
+
+        if ($xml->isEmptyElement) return $author;
 
         while ($xml->read()) {
             if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'author') break;
@@ -174,6 +181,8 @@ class GPXReader
         $copyright = new Copyright();
         $copyright->author = $xml->getAttribute('author');
 
+        if ($xml->isEmptyElement) return $copyright;
+
         while ($xml->read()) {
             if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'copyright') break;
             if ($xml->nodeType == XMLReader::ELEMENT) {
@@ -199,6 +208,8 @@ class GPXReader
         $waypoint = new Waypoint();
         $waypoint->latitude = $xml->getAttribute('lat');
         $waypoint->longitude = $xml->getAttribute('lon');
+
+        if ($xml->isEmptyElement) return $waypoint;
 
         while ($xml->read()) {
             if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == $name) break;
@@ -307,6 +318,8 @@ class GPXReader
     {
         $route = new Route();
 
+        if ($xml->isEmptyElement) return $route;
+
         while ($xml->read()) {
             if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'rte') break;
             if ($xml->nodeType == XMLReader::ELEMENT) {
@@ -362,6 +375,8 @@ class GPXReader
     protected function parseTrack(XMLReader $xml)
     {
         $track = new Track();
+
+        if ($xml->isEmptyElement) return $track;
 
         while ($xml->read()) {
             if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'trk') break;
@@ -419,6 +434,8 @@ class GPXReader
     {
         $segment = new TrackSegment();
 
+        if ($xml->isEmptyElement) return $segment;
+
         while ($xml->read()) {
             if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'trkseg') break;
             if ($xml->nodeType == XMLReader::ELEMENT) {
@@ -439,7 +456,44 @@ class GPXReader
 
     protected function parseExtensions(XMLReader $xml)
     {
-        // @TODO
-        return [];
+        $extensions = [];
+
+        if ($xml->isEmptyElement) return $extensions;
+
+        while ($xml->read()) {
+            if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'extensions') break;
+            if ($xml->nodeType == XMLReader::ELEMENT) {
+                array_push($extensions, $this->parseExtension($xml, $xml->name));
+            }
+        }
+
+        return $extensions;
+    }
+
+    protected function parseExtension(XMLReader $xml, $name)
+    {
+        $extension = new Extension();
+        $extension->name = $name;
+
+        if ($xml->hasAttributes) {
+            while ($xml->moveToNextAttribute()) {
+                $extension->attributes[$xml->name] = $xml->value;
+            }
+            $xml->moveToElement();
+        }
+
+        if (!$xml->isEmptyElement) {
+            while ($xml->read()) {
+                if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == $name) break;
+                if ($xml->nodeType == XMLReader::ELEMENT) {
+                    array_push($extension->children, $this->parseExtension($xml, $xml->name));
+                }
+                if ($xml->nodeType == XMLReader::TEXT || $xml->nodeType == XMLReader::CDATA) {
+                    $extension->value = $xml->value;
+                }
+            }
+        }
+
+        return $extension;
     }
 }

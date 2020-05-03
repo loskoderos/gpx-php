@@ -56,5 +56,5 @@ class Metadata
      * Extensions.
      * @var array<Extension>
      */
-    public $extensions;
+    public $extensions = [];
 }
