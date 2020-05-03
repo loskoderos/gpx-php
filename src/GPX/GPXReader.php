@@ -38,7 +38,7 @@ class GPXReader
                         break;
 
                     case 'wpt':
-                        array_push($gpx->waypoints, $this->parseWaypoint($xml));
+                        array_push($gpx->waypoints, $this->parseWaypoint($xml, 'wpt'));
                         break;
 
                     case 'rte':
@@ -194,14 +194,14 @@ class GPXReader
         return $copyright;
     }
 
-    protected function parseWaypoint(XMLReader $xml)
+    protected function parseWaypoint(XMLReader $xml, $name)
     {
         $waypoint = new Waypoint();
-        $waypoint->latitude = $xml->getAttribute('latitude');
-        $waypoint->longitude = $xml->getAttribute('longitude');
+        $waypoint->latitude = $xml->getAttribute('lat');
+        $waypoint->longitude = $xml->getAttribute('lon');
 
         while ($xml->read()) {
-            if ($xml->nodeType == XMLReader::END_ELEMENT && ($xml->name == 'wpt' || $xml->name == 'rtept' || $xml->name == 'trkpt')) break;
+            if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == $name) break;
             if ($xml->nodeType == XMLReader::ELEMENT) {
                 switch ($xml->name) {
                     case 'ele':
@@ -346,7 +346,7 @@ class GPXReader
                         break;
 
                     case 'rtept':
-                        array_push($route->points, $this->parseWaypoint($xml));
+                        array_push($route->points, $this->parseWaypoint($xml, 'rtept'));
                         break;
 
                     case 'extensions':
@@ -424,11 +424,11 @@ class GPXReader
             if ($xml->nodeType == XMLReader::ELEMENT) {
                 switch ($xml->name) {
                     case 'trkpt':
-                        array_push($segment->points, $this->parseWaypoint($xml));
+                        array_push($segment->points, $this->parseWaypoint($xml, 'trkpt'));
                         break;
 
                     case 'extensions':
-                        array_push($segment->extensions, $this->parseExtensions($ml));
+                        array_push($segment->extensions, $this->parseExtensions($xml));
                         break;
                 }
             }

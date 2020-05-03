@@ -29,7 +29,7 @@
     <extensions></extensions>
   </metadata>
 
-  <wpt latitude="1.23" longitude="4.56">
+  <wpt lat="1.23" lon="4.56">
     <ele>7.89</ele>
     <time>2020-04-20T12:34:57Z</time>
     <magvar>1.23</magvar>
@@ -58,7 +58,7 @@
     <extensions></extensions>
   </wpt>
 
-  <wpt latitude="3.21" longitude="6.54">
+  <wpt lat="3.21" lon="6.54">
     <ele>9.78</ele>
     <time>2020-04-20T01:02:03Z</time>
     <magvar>1.23</magvar>
@@ -87,11 +87,10 @@
     <extensions></extensions>
   </wpt>
 
-  <wpt latitude="3.33" longitude="4.44"></wpt>
-  <wpt latitude="5.55" longitude="6.66"></wpt>
-  <wpt latitude="7.77" longitude="8.88"></wpt>
+  <wpt lat="3.33" lon="4.44"></wpt>
+  <wpt lat="5.55" lon="6.66"></wpt>
+  <wpt lat="7.77" lon="8.88"></wpt>
 
-  <rte></rte>
   <rte></rte>
 
   <rte>
@@ -109,17 +108,52 @@
     <number>123</number>
     <type>type 1</type>
     <extensions></extensions>
-    <rtept latitude="3.21" longitude="6.54">
+    <rtept lat="3.21" lon="6.54">
       <name>Test route 1 waypoint 1</name>
     </rtept>
-    <rtept latitude="7.89" longitude="1.23">
+    <rtept lat="7.89" lon="1.23">
       <name>Test route 1 waypoint 2</name>
     </rtept>
-    <rtept latitude="4.56" longitude="3.21">
+    <rtept lat="4.56" lon="3.21">
       <name>Test route 1 waypoint 3</name>
     </rtept>
   </rte>
 
   <rte></rte>
+  <rte></rte>
+
+  <trk></trk>
+  <trk></trk>
+
+  <trk>
+    <name>Test track 1</name>
+    <cmt>Comment for track 1</cmt>
+    <desc>Description for track 1</desc>
+    <src>Source for track 1</src>
+    <link href="https://link1.tld/track1">
+      <text>Test link1 text for track 1</text>
+      <type>Test link1 type for track 1</type>
+    </link>
+    <link href="https://link2.tld/track1">
+      <text>Test link2 text for track 1</text>
+      <type>Test link2 type for track 1</type>
+    </link>
+    <number>321</number>
+    <type>test type</type>
+    <trkseg>
+      <trkpt lat="50.05836808871261" lon="19.80060223236103">
+        <ele>231</ele>
+      </trkpt>
+      <trkpt lat="50.05837592981119" lon="19.8004615678047">
+        <ele>231</ele>
+      </trkpt>
+      <trkpt lat="50.05837592981119" lon="19.8004615678047">
+        <ele>231</ele>
+      </trkpt>
+    </trkseg>
+    <trkseg>
+    </trkseg>
+    <extensions></extensions>
+  </trk>
 
 </gpx>

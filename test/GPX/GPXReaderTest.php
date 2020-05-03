@@ -3,6 +3,7 @@
 namespace Test\GPX;
 
 use GPX\Models\Route;
+use GPX\Models\Track;
 use GPX\Models\Waypoint;
 use GPX\GPXReader;
 use PHPUnit\Framework\TestCase;
@@ -19,6 +20,7 @@ class GPXReaderTest extends TestCase
         $this->assertEquals($gpx->creator, 'Test');
         $this->assertEquals(count($gpx->waypoints), 5);
         $this->assertEquals(count($gpx->routes), 4);
+        $this->assertEquals(count($gpx->tracks), 3);
 
         // Test Metadata
         $this->assertEquals($gpx->metadata->name, 'Test name');
@@ -78,7 +80,7 @@ class GPXReaderTest extends TestCase
 
         // Test Route 1
         /** @var Route $r */
-        $r = $gpx->routes[2];
+        $r = $gpx->routes[1];
         $this->assertEquals($r->name, 'Test route 1');
         $this->assertEquals($r->comment, 'Comment for route 1');
         $this->assertEquals($r->description, 'Description for route 1');
@@ -101,6 +103,27 @@ class GPXReaderTest extends TestCase
         $this->assertEquals($r->points[2]->latitude, '4.56');
         $this->assertEquals($r->points[2]->longitude, '3.21');
         $this->assertEquals($r->points[2]->name, 'Test route 1 waypoint 3');
+
+        // Test Track 1
+        /** @var Track $t */
+        $t = $gpx->tracks[2];
+        $this->assertEquals($t->name, 'Test track 1');
+        $this->assertEquals($t->comment, 'Comment for track 1');
+        $this->assertEquals($t->description, 'Description for track 1');
+        $this->assertEquals(count($t->links), 2);
+        $this->assertEquals($t->links[0]->href, 'https://link1.tld/track1');
+        $this->assertEquals($t->links[0]->text, 'Test link1 text for track 1');
+        $this->assertEquals($t->links[0]->type, 'Test link1 type for track 1');
+        $this->assertEquals($t->links[1]->href, 'https://link2.tld/track1');
+        $this->assertEquals($t->links[1]->text, 'Test link2 text for track 1');
+        $this->assertEquals($t->links[1]->type, 'Test link2 type for track 1');
+        $this->assertEquals($t->number, '321');
+        $this->assertEquals($t->type, 'test type');
+        $this->assertEquals(count($t->segments), 2);
+        $this->assertEquals(count($t->segments[0]->points), 3);
+        $this->assertEquals($t->segments[0]->points[2]->latitude, '50.05837592981119');
+        $this->assertEquals($t->segments[0]->points[2]->longitude, '19.8004615678047');
+        $this->assertEquals($t->segments[0]->points[2]->elevation, '231');
 
         //var_dump($gpx);
     }
