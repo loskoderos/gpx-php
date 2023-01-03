@@ -2,23 +2,22 @@
 
 namespace LosKoderos\GPX\Model;
 
-class Copyright
+use LosKoderos\Generic\Model\Model;
+
+class Copyright extends Model
 {
     /**
      * Copyright holder (TopoSoft, Inc.)
-     * @var string
      */
-    public $author = null;
+    public ?string $author = null;
 
     /**
      * Year of copyright.
-     * @var int
      */
-    public $year = null;
+    public ?int $year = null;
 
     /**
      * Link to external file containing license text.
-     * @var string
      */
-    public $license = null;
+    public ?string $license = null;
 }

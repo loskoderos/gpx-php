@@ -2,59 +2,59 @@
 
 namespace LosKoderos\GPX\Model;
 
-class Metadata
+use LosKoderos\Generic\Model\Model;
+
+class Metadata extends Model
 {
     /**
      * The name of the GPX file.
-     * @var string
      */
-    public $name = null;
+    public ?string $name = null;
 
     /**
      * A description of the contents of the GPX file.
-     * @var string
      */
-    public $description = null;
+    public ?string $description = null;
 
     /**
      * The person or organization who created the GPX file.
-     * @var Person
      */
-    public $author = null;
+    public ?Person $author = null;
 
     /**
      * Copyright and license information governing use of the file.
-     * @var Copyright
      */
-    public $copyright = null;
+    public ?Copyright $copyright = null;
 
     /**
      * URLs associated with the location described in the file.
-     * @var array<Link>
      */
-    public $links = [];
+    public LinkCollection $links;
 
     /**
      * The creation date of the file.
-     * @var \DateTime
      */
-    public $time = null;
+    public ?\DateTime $time = null;
 
     /**
      * Keywords associated with the file. Search engines or databases can use this information to classify the data.
-     * @var string
      */
-    public $keywords = null;
+    public ?string $keywords = null;
 
     /**
      * Minimum and maximum coordinates which describe the extent of the coordinates in the file.
-     * @var Bounds
      */
-    public $bounds = null;
+    public ?Bounds $bounds = null;
 
     /**
      * Extensions.
-     * @var array<Extension>
      */
-    public $extensions = [];
+    public ExtensionCollection $extensions;
+
+    public function __construct($mixed = null)
+    {
+        $this->links = new LinkCollection();
+        $this->extensions = new ExtensionCollection();
+        parent::__construct($mixed);
+    }
 }

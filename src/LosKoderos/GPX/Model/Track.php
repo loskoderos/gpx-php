@@ -2,59 +2,60 @@
 
 namespace LosKoderos\GPX\Model;
 
-class Track
+use LosKoderos\Generic\Model\Model;
+
+class Track extends Model
 {
     /**
      * GPS name of track.
-     * @var string
      */
-    public $name = null;
+    public ?string $name = null;
 
     /**
      * GPS comment for track.
-     * @var string
      */
-    public $comment = null;
+    public ?string $comment = null;
 
     /**
      * User description of track.
-     * @var string
      */
-    public $description = null;
+    public ?string $description = null;
 
     /**
      * Source of data. Included to give user some idea of reliability and accuracy of data.
-     * @var string.
      */
-    public $source;
+    public ?string $source;
 
     /**
      * Links to external information about track.
-     * @var array<Link>
      */
-    public $links = [];
+    public LinkCollection $links;
 
     /**
      * GPS track number.
-     * @var int
      */
-    public $number = null;
+    public ?int $number = null;
 
     /**
      * Type (classification) of track.
-     * @var string
      */
-    public $type = null;
+    public ?string $type = null;
 
     /**
      * Extensions.
-     * @var array<Extension>
      */
-    public $extensions = [];
+    public ExtensionCollection $extensions;
 
     /**
      * A Track Segment holds a list of Track Points which are logically connected in order.
-     * @var array<TrackSegment>
      */
-    public $segments = [];
+    public SegmentCollection $segments;
+
+    public function __construct($mixed = null)
+    {
+        $this->links = new LinkCollection();
+        $this->extensions = new ExtensionCollection();
+        $this->segments = new SegmentCollection();
+        parent::__construct($mixed);
+    }
 }

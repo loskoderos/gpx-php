@@ -6,13 +6,14 @@ use LosKoderos\GPX\Model\Bounds;
 use LosKoderos\GPX\Model\Copyright;
 use LosKoderos\GPX\Model\Email;
 use LosKoderos\GPX\Model\Extension;
+use LosKoderos\GPX\Model\ExtensionCollection;
 use LosKoderos\GPX\Model\Link;
 use LosKoderos\GPX\Model\Metadata;
 use LosKoderos\GPX\Model\GPX;
 use LosKoderos\GPX\Model\Person;
 use LosKoderos\GPX\Model\Route;
 use LosKoderos\GPX\Model\Track;
-use LosKoderos\GPX\Model\TrackSegment;
+use LosKoderos\GPX\Model\Segment;
 use LosKoderos\GPX\Model\Waypoint;
 use XMLReader;
 
@@ -39,15 +40,15 @@ class GPXReader
                         break;
 
                     case 'wpt':
-                        array_push($gpx->waypoints, $this->parseWaypoint($xml, 'wpt'));
+                        $gpx->waypoints->add($this->parseWaypoint($xml, 'wpt'));
                         break;
 
                     case 'rte':
-                        array_push($gpx->routes, $this->parseRoute($xml));
+                        $gpx->routes->add($this->parseRoute($xml));
                         break;
 
                     case 'trk':
-                        array_push($gpx->tracks, $this->parseTrack($xml));
+                        $gpx->tracks->add($this->parseTrack($xml));
                         break;
                 }
             }
@@ -58,7 +59,7 @@ class GPXReader
         return $gpx;
     }
 
-    protected function parseMetadata(XMLReader $xml)
+    protected function parseMetadata(XMLReader $xml): Metadata
     {
         $metadata = new Metadata();
 
@@ -87,7 +88,7 @@ class GPXReader
                         break;
 
                     case 'link':
-                        array_push($metadata->links, $this->parseLink($xml));
+                        $metadata->links->add($this->parseLink($xml));
                         break;
 
                     case 'time':
@@ -118,7 +119,7 @@ class GPXReader
         return $metadata;
     }
 
-    protected function parseLink(XMLReader $xml)
+    protected function parseLink(XMLReader $xml): Link
     {
         $link = new Link();
         $link->href = $xml->getAttribute('href');
@@ -145,7 +146,7 @@ class GPXReader
         return $link;
     }
 
-    protected function parseAuthor(XMLReader $xml)
+    protected function parseAuthor(XMLReader $xml): Person
     {
         $author = new Person();
 
@@ -176,7 +177,7 @@ class GPXReader
         return $author;
     }
 
-    protected function parseCopyright(XMLReader $xml)
+    protected function parseCopyright(XMLReader $xml): Copyright
     {
         $copyright = new Copyright();
         $copyright->author = $xml->getAttribute('author');
@@ -203,7 +204,7 @@ class GPXReader
         return $copyright;
     }
 
-    protected function parseWaypoint(XMLReader $xml, $name)
+    protected function parseWaypoint(XMLReader $xml, $name): Waypoint
     {
         $waypoint = new Waypoint();
         $waypoint->latitude = $xml->getAttribute('lat');
@@ -256,7 +257,7 @@ class GPXReader
                         break;
 
                     case 'link':
-                        array_push($waypoint->links, $this->parseLink($xml));
+                        $waypoint->links->add($this->parseLink($xml));
                         break;
 
                     case 'sym':
@@ -314,7 +315,7 @@ class GPXReader
         return $waypoint;
     }
 
-    protected function parseRoute(XMLReader $xml)
+    protected function parseRoute(XMLReader $xml): Route
     {
         $route = new Route();
 
@@ -345,7 +346,7 @@ class GPXReader
                         break;
 
                     case 'link':
-                        array_push($route->links, $this->parseLink($xml));
+                        $route->links->add($this->parseLink($xml));
                         break;
 
                     case 'number':
@@ -359,7 +360,7 @@ class GPXReader
                         break;
 
                     case 'rtept':
-                        array_push($route->points, $this->parseWaypoint($xml, 'rtept'));
+                        $route->points->add($this->parseWaypoint($xml, 'rtept'));
                         break;
 
                     case 'extensions':
@@ -372,7 +373,7 @@ class GPXReader
         return $route;
     }
 
-    protected function parseTrack(XMLReader $xml)
+    protected function parseTrack(XMLReader $xml): Track
     {
         $track = new Track();
 
@@ -403,7 +404,7 @@ class GPXReader
                         break;
 
                     case 'link':
-                        array_push($track->links, $this->parseLink($xml));
+                        $track->links->add($this->parseLink($xml));
                         break;
 
                     case 'number':
@@ -417,7 +418,7 @@ class GPXReader
                         break;
 
                     case 'trkseg':
-                        array_push($track->segments, $this->parseTrackSegment($xml));
+                        $track->segments->add($this->parseSegment($xml));
                         break;
 
                     case 'extensions':
@@ -430,9 +431,9 @@ class GPXReader
         return $track;
     }
 
-    protected function parseTrackSegment(XMLReader $xml)
+    protected function parseSegment(XMLReader $xml): Segment
     {
-        $segment = new TrackSegment();
+        $segment = new Segment();
 
         if ($xml->isEmptyElement) return $segment;
 
@@ -441,11 +442,11 @@ class GPXReader
             if ($xml->nodeType == XMLReader::ELEMENT) {
                 switch ($xml->name) {
                     case 'trkpt':
-                        array_push($segment->points, $this->parseWaypoint($xml, 'trkpt'));
+                        $segment->points->add($this->parseWaypoint($xml, 'trkpt'));
                         break;
 
                     case 'extensions':
-                        array_push($segment->extensions, $this->parseExtensions($xml));
+                        $segment->extensions->add($this->parseExtensions($xml));
                         break;
                 }
             }
@@ -454,23 +455,23 @@ class GPXReader
         return $segment;
     }
 
-    protected function parseExtensions(XMLReader $xml)
+    protected function parseExtensions(XMLReader $xml): ExtensionCollection
     {
-        $extensions = [];
+        $extensions = new ExtensionCollection();
 
         if ($xml->isEmptyElement) return $extensions;
 
         while ($xml->read()) {
             if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == 'extensions') break;
             if ($xml->nodeType == XMLReader::ELEMENT) {
-                array_push($extensions, $this->parseExtension($xml, $xml->name));
+                $extensions->add($this->parseExtension($xml, $xml->name));
             }
         }
 
         return $extensions;
     }
 
-    protected function parseExtension(XMLReader $xml, $name)
+    protected function parseExtension(XMLReader $xml, $name): Extension
     {
         $extension = new Extension();
         $extension->name = $name;
@@ -486,7 +487,7 @@ class GPXReader
             while ($xml->read()) {
                 if ($xml->nodeType == XMLReader::END_ELEMENT && $xml->name == $name) break;
                 if ($xml->nodeType == XMLReader::ELEMENT) {
-                    array_push($extension->children, $this->parseExtension($xml, $xml->name));
+                    $extension->children->add($this->parseExtension($xml, $xml->name));
                 }
                 if ($xml->nodeType == XMLReader::TEXT || $xml->nodeType == XMLReader::CDATA) {
                     $extension->value = $xml->value;

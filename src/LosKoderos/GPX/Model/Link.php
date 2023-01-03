@@ -2,23 +2,22 @@
 
 namespace LosKoderos\GPX\Model;
 
-class Link
+use LosKoderos\Generic\Model\Model;
+
+class Link extends Model
 {
     /**
      * URL of hyperlink.
-     * @var string
      */
-    public $href = null;
+    public ?string $href = null;
 
     /**
      * Text of hyperlink.
-     * @var string
      */
-    public $text = null;
+    public ?string $text = null;
 
     /**
      * Mime type of content (image/jpeg)
-     * @var string
      */
-    public $type = null;
+    public ?string $type = null;
 }

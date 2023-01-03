@@ -2,23 +2,22 @@
 
 namespace LosKoderos\GPX\Model;
 
-class Person
+use LosKoderos\Generic\Model\Model;
+
+class Person extends Model
 {
     /**
      * Name of person or organization.
-     * @var string
      */
-    public $name = null;
+    public ?string $name = null;
 
     /**
      * Email address.
-     * @var Email
      */
-    public $email = null;
+    public ?Email $email = null;
 
     /**
      * Link to Web site or other external information about person.
-     * @var Link
      */
-    public $link;
+    public ?Link $link = null;
 }

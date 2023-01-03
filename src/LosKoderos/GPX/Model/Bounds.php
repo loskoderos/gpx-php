@@ -2,29 +2,27 @@
 
 namespace LosKoderos\GPX\Model;
 
-class Bounds
+use LosKoderos\Generic\Model\Model;
+
+class Bounds extends Model
 {
     /**
      * The minimum latitude.
-     * @var float
      */
-    public $minLatitude = 0.0;
+    public ?float $minLatitude = null;
 
     /**
      * The minimum longitude.
-     * @var float
      */
-    public $minLongitude = 0.0;
+    public ?float $minLongitude = null;
 
     /**
      * The maximum latitude.
-     * @var float
      */
-    public $maxLatitude = 0.0;
+    public ?float $maxLatitude = null;
 
     /**
      * The maximum longitude.
-     * @var float
      */
-    public $maxLongitude = 0.0;
+    public ?float $maxLongitude = null;
 }

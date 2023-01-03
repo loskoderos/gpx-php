@@ -2,17 +2,17 @@
 
 namespace LosKoderos\GPX\Model;
 
-class Email
+use LosKoderos\Generic\Model\Model;
+
+class Email extends Model
 {
     /**
      * The id half of email address (billgates2004).
-     * @var string
      */
-    public $id = null;
+    public ?string $id = null;
 
     /**
      * The domain half of email address (hotmail.com)
-     * @var string
      */
-    public $domain = null;
+    public ?string $domain = null;
 }

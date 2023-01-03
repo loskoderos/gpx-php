@@ -2,29 +2,34 @@
 
 namespace LosKoderos\GPX\Model;
 
-class Extension
+use LosKoderos\Generic\Model\Model;
+use LosKoderos\Generic\Collection\Collection;
+
+class Extension extends Model
 {
     /**
      * Name of the extension element.
-     * @var string
      */
-    public $name = null;
+    public ?string $name = null;
 
     /**
      * Attributes, key => value.
-     * @var array
      */
-    public $attributes = [];
+    public ?Collection $attributes;
 
     /**
      * Children nodes.
-     * @var array<Extension>
      */
-    public $children = [];
+    public ?ExtensionCollection $children;
 
     /**
      * Value.
-     * @var string
      */
-    public $value = null;
+    public ?string $value = null;
+
+    public function __construct($mixed = null) {
+        $this->attributes = new Collection();
+        $this->children = new ExtensionCollection();
+        parent::__construct($mixed);
+    }
 }

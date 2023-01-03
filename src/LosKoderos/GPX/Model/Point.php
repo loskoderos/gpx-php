@@ -2,29 +2,27 @@
 
 namespace LosKoderos\GPX\Model;
 
-class Point
+use LosKoderos\Generic\Model\Model;
+
+class Point extends Model
 {
     /**
      * The latitude of the point. Decimal degrees, WGS84 datum.
-     * @var float
      */
-    public $latitude = 0.0;
+    public ?float $latitude = null;
 
     /**
      * The latitude of the point. Decimal degrees, WGS84 datum.
-     * @var float
      */
-    public $longitude = 0.0;
+    public ?float $longitude = null;
 
     /**
      * The elevation (in meters) of the point.
-     * @var float
      */
-    public $elevation = null;
+    public ?float $elevation = null;
 
     /**
      * The time that the point was recorded.
-     * @var \DateTime
      */
-    public $time = null;
+    public ?\DateTime $time = null;
 }
