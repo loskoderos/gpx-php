@@ -24,7 +24,7 @@ class Track extends Model
     /**
      * Source of data. Included to give user some idea of reliability and accuracy of data.
      */
-    public ?string $source;
+    public ?string $source = null;
 
     /**
      * Links to external information about track.

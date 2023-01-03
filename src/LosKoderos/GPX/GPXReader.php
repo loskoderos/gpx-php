@@ -207,8 +207,8 @@ class GPXReader
     protected function readWaypoint(XMLReader $xml, $name): Waypoint
     {
         $waypoint = new Waypoint();
-        $waypoint->latitude = $xml->getAttribute('lat');
-        $waypoint->longitude = $xml->getAttribute('lon');
+        $waypoint->latitude = (float) $xml->getAttribute('lat');
+        $waypoint->longitude = (float) $xml->getAttribute('lon');
 
         if ($xml->isEmptyElement) return $waypoint;
 

@@ -187,18 +187,34 @@ class GPXWriterTest extends TestCase
 {
     public function testWriter_synthethic()
     {
-        $tmpFile = tempnam('/tmp', 'gpx-');
+        $tempFile = tempnam('/tmp', 'gpx-');
         
         $writer = new GPXWriter();
-        $writer->write(new GPX(GPX_DATA), $tmpFile);
+        $writer->write(new GPX(GPX_DATA), $tempFile);
 
 
         $reader = new GPXReader();
-        $gpx = $reader->read($tmpFile);
+        $gpx = $reader->read($tempFile);
 
         $this->assertArraysAreIdentical(GPX_DATA, $gpx->toArray());
 
-        @unlink($tmpFile);
+        @unlink($tempFile);
+    }
+
+    public function testWriter_processSampleGPX()
+    {
+      $tempFile = tempnam('/tmp', 'gpx-');
+
+      $reader = new GPXReader();
+      $writer = new GPXWriter();
+        
+      $srcGPX = $reader->read('test/test.gpx');
+      $writer->write($srcGPX, $tempFile);
+      $destGPX = $reader->read($tempFile);
+
+      $this->assertArraysAreIdentical($srcGPX->toArray(), $destGPX->toArray());
+
+      @unlink($tempFile);
     }
 
     protected function assertArraysAreIdentical(array $a, array $b)
@@ -211,16 +227,27 @@ class GPXWriterTest extends TestCase
     {
         foreach ($a as $k => $v) {
             if (!empty($v)) {
+                // Make sure the other array has the same key.
                 $this->assertArrayHasKey($k, $b, sprintf('%s.%s does not exist in %s', $la, $k, $lb));
+
                 if (is_array($v) && is_array($b[$k])) {
+                    // Get deeper, recursion.
                     $this->_recursivelyCompareArray($v, $b[$k], $la.'.'.$k, $lb.'.'.$k);
-                } else {
+                
+                  } else {
                     if (!empty($v) || !empty($b[$k])) {
-                        $this->assertEquals($v, $b[$k], sprintf('%s.%s does not match %s.%s', $la, $k, $lb, $k));
+                        if (is_float($v) && is_float($b[$k])) {
+                            // Floating point are nearly equal.
+                            $this->assertTrue(abs($v - $b[$k]) < 0.0001);
+                        } else {
+                            // Make sure values are equal.
+                            $this->assertEquals($v, $b[$k], sprintf('%s.%s does not match %s.%s', $la, $k, $lb, $k));
+                        }
                     }
                 }
             
             } else {
+                // Skip empty.
                 $this->assertTrue(!isset($b[$k]) || empty($b[$k]), sprintf('%s.%s does not match %s.%s', $la, $k, $lb, $k));
             }
         }
