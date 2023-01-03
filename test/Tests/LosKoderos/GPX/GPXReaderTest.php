@@ -1,11 +1,11 @@
 <?php
 
-namespace Test\GPX;
+namespace Tests\LosKoderos\GPX;
 
-use GPX\Models\Route;
-use GPX\Models\Track;
-use GPX\Models\Waypoint;
-use GPX\GPXReader;
+use LosKoderos\GPX\Model\Route;
+use LosKoderos\GPX\Model\Track;
+use LosKoderos\GPX\Model\Waypoint;
+use LosKoderos\GPX\GPXReader;
 use PHPUnit\Framework\TestCase;
 
 class GPXReaderTest extends TestCase

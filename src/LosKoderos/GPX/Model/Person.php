@@ -1,6 +1,6 @@
 <?php
 
-namespace GPX\Models;
+namespace LosKoderos\GPX\Model;
 
 class Person
 {

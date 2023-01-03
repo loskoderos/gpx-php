@@ -4,16 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e2b8d89e121cd71db742bc90a6f38f3",
-    "packages": [],
+    "content-hash": "2cf7ff85404c14d2d16cedbd13f71973",
+    "packages": [
+        {
+            "name": "loskoderos/generic-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/loskoderos/generic-php.git",
+                "reference": "e2709eff5a32a474d30fa69998bff17d9869f780"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/loskoderos/generic-php/zipball/e2709eff5a32a474d30fa69998bff17d9869f780",
+                "reference": "e2709eff5a32a474d30fa69998bff17d9869f780",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LosKoderos\\Generic\\": "src/LosKoderos/Generic"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukasz Cepowski",
+                    "email": "lukasz@cepowski.com",
+                    "homepage": "https://cepa.io"
+                }
+            ],
+            "description": "Dustbin for all PHP code thats Generic",
+            "support": {
+                "email": "hello@loskoderos.com",
+                "issues": "https://github.com/loskoderos/generic-php/issues",
+                "source": "https://github.com/loskoderos/generic-php/tree/master"
+            },
+            "time": "2022-12-21T08:07:40+00:00"
+        }
+    ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "loskoderos/generic-php": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0"
+        "php": ">=7.4"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }

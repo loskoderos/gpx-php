@@ -1,31 +1,32 @@
 {
-  "name": "cepa/gpx-php",
-  "type": "library",
-  "description": "GPX library for PHP",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Lukasz Cepowski",
-      "email": "lukasz@cepowski.com",
-      "homepage": "https://cepa.io"
+    "name": "loskoderos/gpx-php",
+    "description": "GPX library for PHP",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lukasz Cepowski",
+            "email": "lukasz@cepowski.com",
+            "homepage": "https://cepa.io"
+        }
+    ],
+    "support": {
+        "email": "hello@loskoderos.com"
+    },
+    "require": {
+        "loskoderos/generic-php": "dev-master",
+        "php": ">=7.4"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "LosKoderos\\GPX\\": "src/LosKoderos/GPX"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\LosKoderos\\": "test/Tests/LosKoderos"
+        }
     }
-  ],
-  "support": {
-    "email": "lukasz@cepowski.com"
-  },
-  "require": {
-    "php": ">=7.0"
-  },
-  "require-dev": {
-  },
-  "autoload": {
-    "psr-4": {
-      "GPX\\": "src/GPX"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "GPX\\": "test/GPX"
-    }
-  }
 }

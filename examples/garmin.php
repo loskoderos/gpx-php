@@ -1,6 +1,6 @@
 <?php
 
-use GPX\GPXReader;
+use LosKoderos\GPX\GPXReader;
 
 require '../vendor/autoload.php';
 

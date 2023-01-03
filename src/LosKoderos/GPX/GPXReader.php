@@ -1,19 +1,19 @@
 <?php
 
-namespace GPX;
+namespace LosKoderos\GPX;
 
-use GPX\Models\Bounds;
-use GPX\Models\Copyright;
-use GPX\Models\Email;
-use GPX\Models\Extension;
-use GPX\Models\Link;
-use GPX\Models\Metadata;
-use GPX\Models\GPX;
-use GPX\Models\Person;
-use GPX\Models\Route;
-use GPX\Models\Track;
-use GPX\Models\TrackSegment;
-use GPX\Models\Waypoint;
+use LosKoderos\GPX\Model\Bounds;
+use LosKoderos\GPX\Model\Copyright;
+use LosKoderos\GPX\Model\Email;
+use LosKoderos\GPX\Model\Extension;
+use LosKoderos\GPX\Model\Link;
+use LosKoderos\GPX\Model\Metadata;
+use LosKoderos\GPX\Model\GPX;
+use LosKoderos\GPX\Model\Person;
+use LosKoderos\GPX\Model\Route;
+use LosKoderos\GPX\Model\Track;
+use LosKoderos\GPX\Model\TrackSegment;
+use LosKoderos\GPX\Model\Waypoint;
 use XMLReader;
 
 class GPXReader
