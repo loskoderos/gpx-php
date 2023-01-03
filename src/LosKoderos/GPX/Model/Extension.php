@@ -23,9 +23,9 @@ class Extension extends Model
     public ?ExtensionCollection $children;
 
     /**
-     * Value.
+     * Content, CDATA, etc.
      */
-    public ?string $value = null;
+    public ?string $content = null;
 
     public function __construct($mixed = null) {
         $this->attributes = new Collection();

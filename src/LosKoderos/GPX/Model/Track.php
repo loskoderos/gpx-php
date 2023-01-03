@@ -47,15 +47,15 @@ class Track extends Model
     public ExtensionCollection $extensions;
 
     /**
-     * A Track Segment holds a list of Track Points which are logically connected in order.
+     * A Track TrackSegment holds a list of Track Points which are logically connected in order.
      */
-    public SegmentCollection $segments;
+    public TrackSegmentCollection $segments;
 
     public function __construct($mixed = null)
     {
         $this->links = new LinkCollection();
         $this->extensions = new ExtensionCollection();
-        $this->segments = new SegmentCollection();
+        $this->segments = new TrackSegmentCollection();
         parent::__construct($mixed);
     }
 }

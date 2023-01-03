@@ -8,6 +8,7 @@ GPX (GPS Exchange Format) is a de facto standard file format for sharing GPS tra
 
 More information about the GPX format:
 https://en.wikipedia.org/wiki/GPS_Exchange_Format
+http://www.topografix.com/GPX/1/1
 
 ## Installation
 GPX-PHP is still under development, however if you want to try it out you can 

@@ -4,7 +4,7 @@ namespace LosKoderos\GPX\Model;
 
 use LosKoderos\Generic\Model\Model;
 
-class Segment extends Model
+class TrackSegment extends Model
 {
     /**
      * A Track Point holds the coordinates, elevation, timestamp, and metadata for a single point in a track.
