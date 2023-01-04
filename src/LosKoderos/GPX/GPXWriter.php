@@ -21,10 +21,24 @@ class GPXWriter
 {
     const GPX_XMLNS = 'http://www.topografix.com/GPX/1/1';
 
-    public function write(GPX $gpx, string $filename)
+    public function writeToFile(GPX $gpx, string $filename)
     {
         $xml = new XMLWriter();
         $xml->openUri($filename);
+        $this->write($gpx, $xml);
+        $xml->flush();
+    }
+
+    public function writeToString(GPX $gpx): string
+    {
+        $xml = new XMLWriter();
+        $xml->openMemory();
+        $this->write($gpx, $xml);
+        return $xml->flush();
+    }
+
+    protected function write(GPX $gpx, XMLWriter $xml)
+    {
         $xml->startDocument('1.0', 'utf-8');
 
         $xml->startElement('gpx');

@@ -19,12 +19,19 @@ use XMLReader;
 
 class GPXReader
 {
-    public function read($filename): GPX
+    public function readFromFile(string $filename): GPX
+    {
+        return $this->read(XMLReader::open($filename));
+    }
+
+    public function readFromString(string $content): GPX
+    {
+        return $this->read(XMLReader::XML($content));
+    }
+
+    protected function read(XMLReader $xml): GPX
     {
         $gpx = new GPX();
-
-        $xml = new XMLReader();
-        $xml->open($filename);
 
         while ($xml->read()) {
 
@@ -204,7 +211,7 @@ class GPXReader
         return $copyright;
     }
 
-    protected function readWaypoint(XMLReader $xml, $name): Waypoint
+    protected function readWaypoint(XMLReader $xml, string $name): Waypoint
     {
         $waypoint = new Waypoint();
         $waypoint->latitude = (float) $xml->getAttribute('lat');
@@ -471,7 +478,7 @@ class GPXReader
         return $extensions;
     }
 
-    protected function readExtension(XMLReader $xml, $name): Extension
+    protected function readExtension(XMLReader $xml, string $name): Extension
     {
         $extension = new Extension();
         $extension->name = $name;

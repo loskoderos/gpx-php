@@ -6,15 +6,26 @@ use LosKoderos\GPX\Model\Route;
 use LosKoderos\GPX\Model\Track;
 use LosKoderos\GPX\Model\Waypoint;
 use LosKoderos\GPX\GPXReader;
+use LosKoderos\GPX\Model\GPX;
 use PHPUnit\Framework\TestCase;
 
 class GPXReaderTest extends TestCase
 {
-    public function testReader()
+    public function testParseFile()
     {
         $reader = new GPXReader();
-        $gpx = $reader->read('test/test.gpx');
+        $this->runGPXTest($reader->readFromFile('test/test.gpx'));
+    }
 
+    public function testParseString()
+    {
+        $content = file_get_contents('test/test.gpx');
+        $reader = new GPXReader();
+        $this->runGPXTest($reader->readFromString($content));
+    }
+
+    protected function runGPXTest(GPX $gpx)
+    {
         // Test GPX
         $this->assertEquals($gpx->version, '1.1');
         $this->assertEquals($gpx->creator, 'Test');

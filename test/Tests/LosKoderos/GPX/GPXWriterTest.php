@@ -185,36 +185,32 @@ const GPX_DATA = [
 
 class GPXWriterTest extends TestCase
 {
-    public function testWriter_synthethic()
+    public function testGenerate()
     {
         $tempFile = tempnam('/tmp', 'gpx-');
         
         $writer = new GPXWriter();
-        $writer->write(new GPX(GPX_DATA), $tempFile);
+        $writer->writeToFile(new GPX(GPX_DATA), $tempFile);
 
 
         $reader = new GPXReader();
-        $gpx = $reader->read($tempFile);
+        $gpx = $reader->readFromFile($tempFile);
 
         $this->assertArraysAreIdentical(GPX_DATA, $gpx->toArray());
 
         @unlink($tempFile);
     }
 
-    public function testWriter_processSampleGPX()
+    public function testParseAndGenerate()
     {
-      $tempFile = tempnam('/tmp', 'gpx-');
+        $reader = new GPXReader();
+        $writer = new GPXWriter();
+            
+        $srcGPX = $reader->readFromFile('test/test.gpx');
+        $content = $writer->writeToString($srcGPX);
+        $destGPX = $reader->readFromString($content);
 
-      $reader = new GPXReader();
-      $writer = new GPXWriter();
-        
-      $srcGPX = $reader->read('test/test.gpx');
-      $writer->write($srcGPX, $tempFile);
-      $destGPX = $reader->read($tempFile);
-
-      $this->assertArraysAreIdentical($srcGPX->toArray(), $destGPX->toArray());
-
-      @unlink($tempFile);
+        $this->assertArraysAreIdentical($srcGPX->toArray(), $destGPX->toArray());
     }
 
     protected function assertArraysAreIdentical(array $a, array $b)

@@ -17,7 +17,7 @@ function haversine(float $lat1, float $lon1, float $lat2, float $lon2)
 }
 
 $reader = new GPXReader();
-$gpx = $reader->read('mapout.gpx');
+$gpx = $reader->readFromFile('mapout.gpx');
 
 $coords = [];
 foreach ($gpx->tracks as $track) {
