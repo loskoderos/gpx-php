@@ -24,7 +24,7 @@ composer require loskoderos/gpx-php:dev-master
 
 ## Reading GPX files
 Sample code to read contents of the GPX file and list point coordinates.
-~~~
+~~~php
 <?php
 
 use LosKoderos\GPX\GPXReader;
@@ -44,7 +44,7 @@ foreach ($gpx->routes as $route) {
 
 ## Writing GPX files
 The library contain model representing each of the entities found in the GPX specification. You can create a GPX by adding elements one by one.
-~~~
+~~~php
 <?php
 
 use LosKoderos\GPX\GPXWriter;
@@ -88,7 +88,7 @@ echo $writer->writeToFile($gpx, 'out.gpx');
 ~~~
 
 Other option to create a GPX is simply by passing GPX as array to the writer.
-~~~
+~~~php
 <?php
 
 use LosKoderos\GPX\GPXWriter;
