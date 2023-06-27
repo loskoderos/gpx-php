@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/loskoderos/generic-php.git",
-                "reference": "7d38149278be630cf727802f892518a0438a860b"
+                "reference": "b28d85f8dec8545cd71d30e2d556b494b60d7415"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/loskoderos/generic-php/zipball/7d38149278be630cf727802f892518a0438a860b",
-                "reference": "7d38149278be630cf727802f892518a0438a860b",
+                "url": "https://api.github.com/repos/loskoderos/generic-php/zipball/b28d85f8dec8545cd71d30e2d556b494b60d7415",
+                "reference": "b28d85f8dec8545cd71d30e2d556b494b60d7415",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
                 "issues": "https://github.com/loskoderos/generic-php/issues",
                 "source": "https://github.com/loskoderos/generic-php/tree/master"
             },
-            "time": "2023-03-15T17:56:01+00:00"
+            "time": "2023-06-27T16:10:17+00:00"
         }
     ],
     "packages-dev": [],
